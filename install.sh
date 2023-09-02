@@ -22,7 +22,7 @@ mkfs.ext4 /dev/sda2
 
 mount /dev/sda2 /mnt
 
-pacstrap /mnt base linux linux-firmware nano xorg i3 lightdm lightdm-gtk-greeter pulseaudio j4-dmenu-desktop qutebrowser pcmanfm pavucontrol networkmanager grub
+pacstrap /mnt base linux linux-firmware nano xorg i3 lightdm lightdm-gtk-greeter pulseaudio j4-dmenu-desktop qutebrowser pcmanfm pavucontrol networkmanager grub sudo alacritty
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
@@ -31,7 +31,7 @@ cp /etc/locale.gen /etc/locale.bak
 echo -e "en_GB.UTF-8\nen_US.UTF-8" > /etc/locale.gen
 locale-gen
 echo LANG=en_GB.UTF-8 > /etc/locale.conf
-HOSTNAME=$(echo "Arch-\$(head -c 20 /dev/urandom | md5sum | awk '{print \$1}')")
+HOSTNAME=$(echo "Arch-\$(head -c 10 /dev/urandom | md5sum | awk '{print \$1}')")
 echo \$HOSTNAME > /etc/hostname
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts
 echo -e "password\npassword" | passwd root
