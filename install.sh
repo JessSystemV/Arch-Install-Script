@@ -22,7 +22,7 @@ mkfs.ext4 /dev/sda2
 
 mount /dev/sda2 /mnt
 
-pacstrap /mnt base linux linux-firmware nano xorg i3 lightdm lightdm-gtk-greeter pulseaudio j4-dmenu-desktop qutebrowser pcmanfm pavucontrol network-manager grub
+pacstrap /mnt base linux linux-firmware nano xorg i3 lightdm lightdm-gtk-greeter pulseaudio j4-dmenu-desktop qutebrowser pcmanfm pavucontrol networkmanager grub
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
