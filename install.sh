@@ -22,7 +22,7 @@ mkfs.ext4 /dev/sda2
 
 mount /dev/sda2 /mnt
 
-pacstrap /mnt base linux linux-firmware nano xorg i3 lightdm lightdm-gtk-greeter pulseaudio j4-dmenu-desktop qutebrowser pcmanfm pavucontrol networkmanager grub sudo alacritty
+pacstrap /mnt base linux-zen linux-firmware nano xorg i3 lightdm lightdm-gtk-greeter pulseaudio j4-dmenu-desktop qutebrowser pcmanfm pavucontrol networkmanager grub sudo alacritty nano i3status i3lock xss-lock dmenu
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
@@ -34,12 +34,16 @@ echo LANG=en_GB.UTF-8 > /etc/locale.conf
 HOSTNAME=$(echo "Arch-\$(head -c 10 /dev/urandom | md5sum | awk '{print \$1}')")
 echo \$HOSTNAME > /etc/hostname
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts
-echo -e "password\npassword" | passwd root
 grub-install --target=i386-pc /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 useradd -m jess
+echo -e "password\npassword" | passwd root
 echo -e "password\npassword" | passwd jess
 usermod -aG wheel,audio,video,storage jess
+dd if=/dev/zero of=/swapfile bs=1M count=14k status=progress
+chmod 0600 /swapfile
+mkswap -U clear /swapfile
+echo "/swapfile none swap defaults 0 0" >> /etc/fstab
 sed -i '/%wheel ALL(ALL:ALL) ALL[^[:alnum:]_]/s/^/#/g' /etc/sudoers
 systemctl enable lightdm
 systemctl enable NetworkManager
