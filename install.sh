@@ -10,27 +10,10 @@ read userpassword
 echo Enter a root password.
 read rootpassword
 
-(
-  echo g;
-  echo n;
-  echo ;
-  echo ;
-  echo ;
-  echo +25M;
-  echo a;
-  echo n;
-  echo ;
-  echo ;
-  echo ;
-  echo ;
-  echo t;
-  echo 1;
-  echo 1;
-  echo w;
-) | fdisk /dev/sda
-
-mkfs.fat -F32 /dev/sda1
-mkfs.ext4 /dev/sda2
+parted /dev/sda mklabel gpt
+parted /dev/sda mkpart primary fat32 1MiB 513MiB
+parted /dev/sda set 1 esp on
+parted /dev/sda mkpart primary ext4 513MiB 100%
 
 mount /dev/sda2 /mnt
 
