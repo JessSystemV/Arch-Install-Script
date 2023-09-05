@@ -34,7 +34,7 @@ mkfs.ext4 /dev/sda2
 
 mount /dev/sda2 /mnt
 
-pacstrap /mnt base linux-zen linux-firmware nano xorg i3 lightdm lightdm-gtk-greeter pulseaudio j4-dmenu-desktop qutebrowser pcmanfm pavucontrol networkmanager grub sudo alacritty nano i3status i3lock xss-lock dmenu
+pacstrap /mnt base linux-zen linux-firmware nano xorg dunst maim xclip i3 lightdm feh lxqt-policykit slock lightdm-gtk-greeter pulseaudio picom j4-dmenu-desktop qutebrowser pcmanfm pavucontrol networkmanager grub sudo alacritty nano i3status i3lock xss-lock dmenu
 
 genfstab -U /mnt >> /mnt/etc/fstab
 
@@ -46,8 +46,8 @@ echo LANG=en_GB.UTF-8 > /etc/locale.conf
 HOSTNAME=$(echo "Arch-\$(head -c 10 /dev/urandom | md5sum | awk '{print \$1}')")
 echo \$HOSTNAME > /etc/hostname
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts
-mount /dev/sdb1 /boot/efi
-grub-install /dev/sda
+mount /dev/sda1 /boot/efi
+grub-install --target=x86_64-efi --efi-directory=/boot/efi
 grub-mkconfig -o /boot/grub/grub.cfg
 useradd -m $username
 echo -e "$userpassword\n$userpassword" | passwd $username
