@@ -11,7 +11,7 @@ echo Enter a root password.
 read rootpassword
 
 (
-  echo o;
+  echo g;
   echo n;
   echo ;
   echo ;
