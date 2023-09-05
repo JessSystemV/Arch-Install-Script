@@ -63,6 +63,7 @@ systemctl enable NetworkManager
 su - jess
 systemctl --user enable pulseaudio
 cd ~/
+wget https://raw.githubusercontent.com/JessSystemV/Arch-Install-Script/main/wallpaper.jpg
 mkdir -p .config/i3
 cd .config/i3
 wget https://raw.githubusercontent.com/JessSystemV/Arch-Install-Script/main/config
