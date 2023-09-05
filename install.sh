@@ -1,6 +1,15 @@
 #!/bin/bash
 echo "Installing Arch, Jess' Preferred Defaults (i3)"
 
+echo Enter a username.
+read username
+
+echo Enter a user password.
+read userpassword
+
+echo Enter a root password.
+read rootpassword
+
 (
   echo o;
   echo n;
@@ -14,6 +23,9 @@ echo "Installing Arch, Jess' Preferred Defaults (i3)"
   echo ;
   echo ;
   echo ;
+  echo t;
+  echo 1;
+  echo 1;
   echo w;
 ) | fdisk /dev/sda
 
@@ -34,12 +46,13 @@ echo LANG=en_GB.UTF-8 > /etc/locale.conf
 HOSTNAME=$(echo "Arch-\$(head -c 10 /dev/urandom | md5sum | awk '{print \$1}')")
 echo \$HOSTNAME > /etc/hostname
 echo -e "127.0.0.1 localhost\n::1 localhost" > /etc/hosts
-grub-install --target=i386-pc /dev/sda
+mount /dev/sdb1 /boot/efi
+grub-install /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
-useradd -m jess
-echo -e "password\npassword" | passwd root
-echo -e "password\npassword" | passwd jess
-usermod -aG wheel,audio,video,storage jess
+useradd -m $username
+echo -e "$userpassword\n$userpassword" | passwd $username
+echo -e "$rootpassword\n$rootpassword" | passwd root
+usermod -aG wheel,audio,video,storage $username
 dd if=/dev/zero of=/swapfile bs=1M count=14k status=progress
 chmod 0600 /swapfile
 mkswap -U clear /swapfile
@@ -49,5 +62,9 @@ systemctl enable lightdm
 systemctl enable NetworkManager
 su - jess
 systemctl --user enable pulseaudio
-reboot now
+cd ~/
+mkdir -p .config/i3
+cd .config/i3
+wget https://raw.githubusercontent.com/JessSystemV/Arch-Install-Script/main/config
 EOF
+reboot now
