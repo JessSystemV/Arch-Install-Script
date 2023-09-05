@@ -32,7 +32,7 @@ exec --no-startup-id dex --autostart --environment i3
 
 exec --no-startup-id xss-lock --transfer-sleep-lock -- slock --nofork
 
-exec --no-startup-id feh --bg-tile wallpaper.png
+exec --no-startup-id feh --bg-fill wallpaper.jpg
 
 
 exec --no-startup-id setxkbmap gb
