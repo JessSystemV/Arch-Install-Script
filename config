@@ -56,7 +56,7 @@ floating_modifier $mod
 
 # :brain:
 # fade effect make adhd go brrrr
-#exec --no-startup-id picom
+exec --no-startup-id picom
 #it looks like fucking BURN-IN
 
 # move tiling windows via drag & drop by left-clicking into the title bar,
